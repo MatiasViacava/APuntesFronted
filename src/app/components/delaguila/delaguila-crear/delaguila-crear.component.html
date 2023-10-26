@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container" style="text-align: center">
+      <h2>Registrar</h2>
+      <br />
+      <form [formGroup]="form" (submit)="registrar()" class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Peso</mat-label>
+          <input matInput placeholder="Peso" formControlName="weightEquipaje" />
+          <mat-error
+            *ngIf="obtenerControlCampo('weightEquipaje')?.errors?.['required']"
+          >
+            Complete el campo
+          </mat-error>
+        </mat-form-field>
+
+        <br />
+        <br />
+        <mat-form-field class="example-full-width">
+          <mat-label>Precio</mat-label>
+          <input matInput placeholder="Precio" formControlName="priceEquipaje" />
+        </mat-form-field>
+        <br />
+        <br />
+        <mat-form-field class="example-full-width">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="statusEquipaje">
+            <mat-option *ngFor="let e of estados" [value]="e.value">
+              {{e.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="obtenerControlCampo('statusEquipaje')?.errors?.['required']">
+            El tipo es obligatorio.
+          </mat-error>
+        </mat-form-field>
+
+        <br />
+        <mat-form-field>
+          <mat-label>Fecha de registro</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Fecha de registro"
+            formControlName="dateReception"
+            [max]="maxFecha"
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error
+            *ngIf="obtenerControlCampo('dateReception')?.errors?.['required']"
+          >
+            El Campo es obligatorio
+          </mat-error>
+        </mat-form-field>
+        <br />
+        <button mat-button color="primary">
+          Registrar
+        </button>
+        <button mat-button color="warn" routerLink="/delaguila">Cancelar</button>
+        <br />
+      </form>
+    </div>
+  </body>
+</html>
